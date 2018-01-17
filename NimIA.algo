@@ -1,0 +1,55 @@
+PROGRAMME Jeu de Nim avec IA
+//But:Jouer au jeu de Nim avec l'ordinateur.
+//Principe:Les deux joueurs se partagent 21 alumettes et retirent tour a tour 1,2 ou 3 allumette(s)
+//Entree:nombre d'allumettes a enlever par le joueur
+//Sortie:nombre d'allumettes restantes
+
+CONST
+TOTALALLUM <- 	21 : ENTIER;
+FIN <- 			1 : ENTIER;
+CHOIXMIN <- 	1 : ENTIER;
+CHOIXMAN <- 	3 : ENTIER;
+
+VAR	
+				nbAllum : ENTIER;
+				nbChoix	: ENTIER;
+
+FONCTION TourOrdi(nbAllum : ENTIER) : ENTIER
+VAR
+		i, res : ENTIER;
+DEBUT
+	i <- 0;
+	REPETER
+		i <- i + 1;
+	JUSQU A ((((nbAllum - i) MOD 4) = 0) OU (i = 4) OU ((nbAllum - i + 1) = 1));
+	SI (((nbAllum - i) MOD 4) = 0) ALORS
+		ECRIRE ("L'ordinateur enlève " & i - 1 & " allumette(s)");
+		res <- i - 1;
+	SINON
+		ECRIRE ("L'ordinateur enlève 1 allumette");
+		res <- 1;
+	FINSI
+	SI ((nbAllum - res) = 1) ALORS
+		ECRIRE("L'ordinateur a gagné :/");
+	FINSI
+	TourOrdi <- res;
+FINFONCTION
+
+DEBUT
+	nbAllum <- TOTALALLUM;
+	nbChoix <- 0;
+	REPETER
+		ECRIRE ("Il y a un tas de " & nbAllum & " allumettes. Choisir le nombre d'allumettes a enlever entre 1 et 3, le jeu s'arrete quand il ne reste plus qu'une allumette");
+		LIRE(nbChoix);
+		SI ((nbChoix >= nbAllum) OU (nbChoix < CHOIXMIN OU nbChoix > CHOIXMAX)) ALORS
+			ECRIRE("Choisir un nombre possible d'allumettes a enlever");
+		SINON
+			nbAllum <- nbAllum - nbChoix;
+			SI (nbAllum <> 1) ALORS
+				nbAllum <- nbAllum - TourOrdi(nbAllum);
+			SINON
+				ECRIRE("Vous avez gagné !!!");
+			FINSI
+		FINSI
+	JUSQUA (nbAllum = FIN);
+FIN

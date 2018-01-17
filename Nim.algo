@@ -1,0 +1,28 @@
+PROGRAMME Jeu de Nim 2 joueurs
+//But:Jouer au jeu de Nim avec 2 joueurs.
+//Principe:Les deux joueurs se partagent 21 alumettes et retirent tour a tour 1,2 ou 3 allumette(s)
+//Entree:nombre d'allumettes a enlever par joueur
+//Sortie:nombre d'allumettes restantes
+
+CONST
+TOTALALLUM <- 	21 : ENTIER;
+FIN <- 			1 : ENTIER;
+CHOIXMIN <- 	1 : ENTIER;
+CHOIXMAN <- 	3 : ENTIER;
+
+VAR				nbAllum : ENTIER;
+				nbChoix	: ENTIER
+
+DEBUT
+	nbAllum <- TOTALALLUM;
+	nbChoix <- 0;
+	REPETER
+		ECRIRE ("Il y a un tas de " & nbAllum & " allumettes. Choisir le nombre d'allumettes a enlever entre 1 et 3, le jeu s'arrete quand il ne reste plus qu'une allumette");
+		LIRE(nbChoix);
+		SI ((nbChoix > nbAllum - 1) OU (nbChoix < CHOIXMIN OU nbChoix > CHOIXMAX))
+			ECRIRE("Choisir un nombre possible d'allumettes a enlever");
+		SINON
+			nbAllum <- nbAllum - nbChoix;
+	JUSQUA (nbAllum = FIN);
+	ECRIRE ("Vous avez gagne !!");
+FIN
